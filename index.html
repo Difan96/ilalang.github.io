@@ -1,61 +1,46 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8"k>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Partner - DCMS Port</title>
     <style>
-        /* CSS EDITAN PARTNER - DIKUNCI AGAR TIDAK HANCUR */
-        body {
-            color: #CCCCCC; font-size: 11px; background-color: #000;
-            font-family: Tahoma; margin: 0; padding: 0;
-            display: flex; justify-content: center;
-        }
-        .xwapper {
-            width: 100%; max-width: 650px; background-color: #000;
-            min-height: 100vh; border-left: 1px solid #333; border-right: 1px solid #333;
-        }
-        a:link, a:visited { color: #fe8f17; text-decoration: none; }
-        a:hover { color: #ff4e00; }
-
-        .logo {
-            color: #b94201; text-align: center; padding: 10px; border: 1px solid #5c2901;
-            background: #020100 url(https://putrasumatra.mw.lt/css/themas/images/tmn.gif) repeat-x 50% bottom;
-        }
-        .bmenu {
-            color: #0084b5; padding: 4px; border: 1px solid #005064; text-shadow: #000 1px 1px 2px;
-            background: #000406 url(https://putrasumatra.mw.lt/css/themas/images/bmenu.gif) repeat-x 50% top;
-        }
-        .maintxt { padding: 2px; border: 1px solid #3b3b3b; }
+        /* --- CSS DASAR PARTNER --- */
+        body { background: #000; color: #ccc; font-family: Tahoma; font-size: 11px; margin: 0; padding: 0; display: flex; justify-content: center; }
+        .xwapper { width: 100%; max-width: 650px; background: #000; min-height: 100vh; border-left: 1px solid #333; border-right: 1px solid #333; overflow-x: hidden; }
+        a { color: #fe8f17; text-decoration: none; }
         
-        /* Gaya Postingan */
-        .menu {
-            background: #040404 url(https://putrasumatra.mw.lt/css/themas/images/menu.gif) repeat-x 50% bottom;
-            border: 1px solid #353535; padding: 5px; margin: 1px 0;
+        .logo { background: #020100 url(https://putrasumatra.mw.lt/css/themas/images/tmn.gif) repeat-x 50% bottom; color: #b94201; text-align: center; padding: 10px; border: 1px solid #5c2901; }
+        .bmenu { background: #000406 url(https://putrasumatra.mw.lt/css/themas/images/bmenu.gif) repeat-x 50% top; color: #0084b5; padding: 4px; border: 1px solid #005064; text-shadow: #000 1px 1px 2px; text-align: center; margin-bottom: 2px; }
+        
+        /* --- PERBAIKAN STRUKTUR POSTINGAN --- */
+        .menu { background: #040404 url(https://putrasumatra.mw.lt/css/themas/images/menu.gif) repeat-x 50% bottom; border: 1px solid #353535; padding: 5px; margin: 4px 0; overflow: hidden; }
+        .tmn { background: #020100 url(https://putrasumatra.mw.lt/css/themas/images/tmn_1.gif) repeat-x 50% bottom; color: #b94201; padding: 4px; border: 1px solid #5c2901; font-weight: bold; }
+        .list1 { background: #101010; border: 1px solid #323232; padding: 5px; margin: 2px 0; line-height: 1.4; border-top: none; word-wrap: break-word; }
+        
+        /* --- KONTROL GAMBAR AGAR TIDAK HANCUR (PENTING) --- */
+        .list1 img { 
+            max-width: 100% !important; 
+            height: auto !important; 
+            display: block; 
+            margin: 5px auto; 
+            border: 1px solid #333; 
+            box-shadow: 0 0 5px #000;
         }
-        .tmn {
-            color: #b94201; padding: 4px; border: 1px solid #5c2901; text-shadow: #000 1px 1px 2px;
-            background: #020100 url(https://putrasumatra.mw.lt/css/themas/images/tmn_1.gif) repeat-x 50% bottom;
-        }
-        .list1 { background-color: #101010; border: 1px solid #323232; padding: 5px; margin: 2px 0; }
-        .gmenu {
-            display: block; color: #75bf00; padding: 3px; border: 1px solid #415f00; text-align: center;
-            background: #030500 url(https://putrasumatra.mw.lt/css/themas/images/gmenu.gif) repeat-x 50% top;
-        }
-        .footer {
-            background: #0a0a0a url(https://putrasumatra.mw.lt/css/themas/images/header.gif) repeat-x 50% top;
-            border: 1px solid #333; padding: 10px; text-align: center; margin-top: 5px;
-        }
+
+        .gmenu { display: block; background: #030500 url(https://putrasumatra.mw.lt/css/themas/images/gmenu.gif) repeat-x 50% top; color: #75bf00; padding: 5px; border: 1px solid #415f00; text-align: center; margin-top: 5px; font-weight: bold; }
+        
+        .footer { background: #0a0a0a url(https://putrasumatra.mw.lt/css/themas/images/header.gif) repeat-x 50% top; border: 1px solid #333; padding: 10px; text-align: center; margin-top: 5px; }
     </style>
 </head>
 <body>
 
 <div class="xwapper">
     <div class="logo"><h3>PARTNER DCMS</h3></div>
-    <div class="bmenu"><a href="/">HOME</a> | <a href="/search">INDEX</a></div>
+    <div class="bmenu"><a href="#">HOME</a> | <a href="#">INDEX</a></div>
 
-    <div class="maintxt" id="post-container">
-        <div class="list1">Menghubungkan ke Blogger...</div>
+    <div id="post-container">
+        <div class="list1" style="text-align:center;">Menghubungkan ke Feed...</div>
     </div>
 
     <div class="footer">
@@ -65,41 +50,52 @@
 
 <script>
     // MASUKKAN URL BLOG PARTNER DI SINI
-    const blog_url = "https://xwapper.blogspot.com";
+    const blog_url = "https://difan96.blogspot.com"; 
 
-    function getBloggerPosts(data) {
-        let output = '';
-        const entries = data.feed.entry;
+    function callbackPosts(json) {
+        let html = '';
+        const entries = json.feed.entry;
         
         if (entries) {
             for (let i = 0; i < entries.length; i++) {
-                let title = entries[i].title.$t;
-                let link = "";
+                const title = entries[i].title.$t;
+                let link = '';
                 for (let j = 0; j < entries[i].link.length; j++) {
-                    if (entries[i].link[j].rel == 'alternate') {
-                        link = entries[i].link[j].href;
-                        break;
-                    }
+                    if (entries[i].link[j].rel == 'alternate') { link = entries[i].link[j].href; break; }
                 }
-                let summary = entries[i].summary ? entries[i].summary.$t.substring(0, 100) : (entries[i].content ? entries[i].content.$t.substring(0, 100) : "");
+
+                // Mengambil gambar dari postingan
+                let thumbUrl = "";
+                if (entries[i].media$thumbnail) {
+                    thumbUrl = entries[i].media$thumbnail.url.replace('s72-c', 's1600');
+                } else if (entries[i].content && entries[i].content.$t.match(/src="([^"]+)"/)) {
+                    thumbUrl = entries[i].content.$t.match(/src="([^"]+)"/)[1];
+                }
+
+                let imgHtml = thumbUrl ? `<img src="${thumbUrl}" alt="image"/>` : "";
                 
-                // Membangun tampilan postingan dengan class legendaris Partner
-                output += `
+                // Mengambil ringkasan teks (membersihkan tag HTML)
+                let summary = entries[i].summary ? entries[i].summary.$t : (entries[i].content ? entries[i].content.$t : "");
+                summary = summary.replace(/<[^>]*>?/gm, '').substring(0, 120);
+
+                html += `
                 <div class="menu">
                     <div class="tmn"><a href="${link}">${title}</a></div>
-                    <div class="list1">${summary}...</div>
+                    <div class="list1">
+                        ${imgHtml}
+                        ${summary}...
+                    </div>
                     <a href="${link}" class="gmenu">Baca Selengkapnya »</a>
                 </div>`;
             }
-            document.getElementById('post-container').innerHTML = output;
+            document.getElementById('post-container').innerHTML = html;
         } else {
             document.getElementById('post-container').innerHTML = '<div class="list1">Tidak ada postingan.</div>';
         }
     }
 
-    // Memanggil data Blogger dengan cara yang aman
     const script = document.createElement('script');
-    script.src = `${blog_url}/feeds/posts/default?alt=json-in-script&callback=getBloggerPosts`;
+    script.src = `${blog_url}/feeds/posts/default?alt=json-in-script&callback=callbackPosts`;
     document.body.appendChild(script);
 </script>
 
