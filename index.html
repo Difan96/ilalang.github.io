@@ -31,6 +31,20 @@
         .gmenu { display: block; background: #030500 url(https://putrasumatra.mw.lt/css/themas/images/gmenu.gif) repeat-x 50% top; color: #75bf00; padding: 5px; border: 1px solid #415f00; text-align: center; margin-top: 5px; font-weight: bold; }
         
         .footer { background: #0a0a0a url(https://putrasumatra.mw.lt/css/themas/images/header.gif) repeat-x 50% top; border: 1px solid #333; padding: 10px; text-align: center; margin-top: 5px; }
+.pagenav { background:#111; padding:10px; text-align:center; border:1px solid #333; margin:5px 0; }
+.pagenav a, .pagenav span { 
+    display:inline-block; 
+    padding:5px 10px; 
+    margin:0 2px; 
+    border:1px solid #444; 
+    background:#222; 
+    color:#75bf00; 
+    cursor:pointer; 
+    font-weight:bold; 
+    text-decoration:none; 
+}
+.pagenav .current { background:#b94201; color:#fff; border-color:#5c2901; }
+.pagenav a:hover { background:#333; }       
     </style>
 </head>
 <body>
@@ -42,6 +56,8 @@
     <div id="post-container">
         <div class="list1" style="text-align:center;">Menghubungkan ke Feed...</div>
     </div>
+
+    <div class="pagenav" id="navigation"></div>
 
     <div class="footer">
         &copy; 2026 Difan96
