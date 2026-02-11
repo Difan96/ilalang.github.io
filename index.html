@@ -3,40 +3,105 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blog Retro JCMS</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Partner - DCMS Port</title>
+    <style>
+        /* CSS EDITAN PARTNER - DIKUNCI AGAR TIDAK HANCUR */
+        body {
+            color: #CCCCCC; font-size: 11px; background-color: #000;
+            font-family: Tahoma; margin: 0; padding: 0;
+            display: flex; justify-content: center;
+        }
+        .xwapper {
+            width: 100%; max-width: 650px; background-color: #000;
+            min-height: 100vh; border-left: 1px solid #333; border-right: 1px solid #333;
+        }
+        a:link, a:visited { color: #fe8f17; text-decoration: none; }
+        a:hover { color: #ff4e00; }
+
+        .logo {
+            color: #b94201; text-align: center; padding: 10px; border: 1px solid #5c2901;
+            background: #020100 url(https://putrasumatra.mw.lt/css/themas/images/tmn.gif) repeat-x 50% bottom;
+        }
+        .bmenu {
+            color: #0084b5; padding: 4px; border: 1px solid #005064; text-shadow: #000 1px 1px 2px;
+            background: #000406 url(https://putrasumatra.mw.lt/css/themas/images/bmenu.gif) repeat-x 50% top;
+        }
+        .maintxt { padding: 2px; border: 1px solid #3b3b3b; }
+        
+        /* Gaya Postingan */
+        .menu {
+            background: #040404 url(https://putrasumatra.mw.lt/css/themas/images/menu.gif) repeat-x 50% bottom;
+            border: 1px solid #353535; padding: 5px; margin: 1px 0;
+        }
+        .tmn {
+            color: #b94201; padding: 4px; border: 1px solid #5c2901; text-shadow: #000 1px 1px 2px;
+            background: #020100 url(https://putrasumatra.mw.lt/css/themas/images/tmn_1.gif) repeat-x 50% bottom;
+        }
+        .list1 { background-color: #101010; border: 1px solid #323232; padding: 5px; margin: 2px 0; }
+        .gmenu {
+            display: block; color: #75bf00; padding: 3px; border: 1px solid #415f00; text-align: center;
+            background: #030500 url(https://putrasumatra.mw.lt/css/themas/images/gmenu.gif) repeat-x 50% top;
+        }
+        .footer {
+            background: #0a0a0a url(https://putrasumatra.mw.lt/css/themas/images/header.gif) repeat-x 50% top;
+            border: 1px solid #333; padding: 10px; text-align: center; margin-top: 5px;
+        }
+    </style>
 </head>
 <body>
 
-    <div class="logo">
-        <h1 style="font-size: 16px; margin: 0;">MY WAP BLOG</h1>
-        <small>Just another JSON Site</small>
-    </div>
+<div class="xwapper">
+    <div class="logo"><h3>PARTNER DCMS</h3></div>
+    <div class="bmenu"><a href="/">HOME</a> | <a href="/search">INDEX</a></div>
 
-    <div id="menu">
-        <ul>
-            <li><a href="#" onclick="goHome()">HOME</a></li>
-            <li><a href="#">ABOUT</a></li>
-            <li><a href="#">FRIEND</a></li>
-            <li><a href="#">CONTACT</a></li>
-        </ul>
-    </div>
-
-    <div class="maintxt">
-        <div id="app">
-            <div class="list1" style="text-align:center;">
-                <img src="https://i.gifer.com/ZZ5H.gif" alt="loading" width="20"> Memuat data...
-            </div>
-        </div>
+    <div class="maintxt" id="post-container">
+        <div class="list1">Menghubungkan ke Blogger...</div>
     </div>
 
     <div class="footer">
-        &copy; 2023 My Blog.<br>
-        Style by Difan96 | Engine by JCMS
+        &copy; 2026 Partner - Difan96
     </div>
+</div>
 
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-    <script src="script.js"></script>
+<script>
+    // MASUKKAN URL BLOG PARTNER DI SINI
+    const blog_url = "https://difan96-mobile.blogspot.com";
+
+    function getBloggerPosts(data) {
+        let output = '';
+        const entries = data.feed.entry;
+        
+        if (entries) {
+            for (let i = 0; i < entries.length; i++) {
+                let title = entries[i].title.$t;
+                let link = "";
+                for (let j = 0; j < entries[i].link.length; j++) {
+                    if (entries[i].link[j].rel == 'alternate') {
+                        link = entries[i].link[j].href;
+                        break;
+                    }
+                }
+                let summary = entries[i].summary ? entries[i].summary.$t.substring(0, 100) : (entries[i].content ? entries[i].content.$t.substring(0, 100) : "");
+                
+                // Membangun tampilan postingan dengan class legendaris Partner
+                output += `
+                <div class="menu">
+                    <div class="tmn"><a href="${link}">${title}</a></div>
+                    <div class="list1">${summary}...</div>
+                    <a href="${link}" class="gmenu">Baca Selengkapnya »</a>
+                </div>`;
+            }
+            document.getElementById('post-container').innerHTML = output;
+        } else {
+            document.getElementById('post-container').innerHTML = '<div class="list1">Tidak ada postingan.</div>';
+        }
+    }
+
+    // Memanggil data Blogger dengan cara yang aman
+    const script = document.createElement('script');
+    script.src = `${blog_url}/feeds/posts/default?alt=json-in-script&callback=getBloggerPosts`;
+    document.body.appendChild(script);
+</script>
 
 </body>
 </html>
