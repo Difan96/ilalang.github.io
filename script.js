@@ -1,82 +1,67 @@
 const app = document.getElementById('app');
 
-// Fungsi untuk mengambil ID dari URL (contoh: ?id=judul)
-function getQueryParam(param) {
-    const urlParams = new URLSearchParams(window.location.search);
-    return urlParams.get(param);
-}
-
-// Navigasi tanpa reload halaman
-function navigateToPost(id) {
-    const newUrl = `${window.location.pathname}?id=${id}`;
-    window.history.pushState({ id: id }, '', newUrl);
-    loadContent();
-}
-
 function goHome() {
-    const newUrl = window.location.pathname;
-    window.history.pushState({}, '', newUrl);
-    loadContent();
+    window.location.hash = '';
+    renderPostList();
 }
 
-window.onpopstate = loadContent;
-
-// Fungsi utama untuk memuat konten
-async function loadContent() {
-    const postId = getQueryParam('id');
-    app.innerHTML = '<div class="list1" style="text-align:center;">Memuat data...</div>';
-
-    if (postId) {
-        await renderSinglePost(postId);
-    } else {
-        await renderPostList();
-    }
-}
-
-// Menampilkan daftar artikel di halaman depan
 async function renderPostList() {
+    app.innerHTML = '<div class="list1" style="text-align:center;">Memuat daftar postingan...</div>';
     try {
+        // Mengambil file data/post.json (sesuai nama file Anda)
         const response = await fetch('data/post.json');
-        if (!response.ok) throw new Error();
+        if (!response.ok) throw new Error('File data/post.json tidak ditemukan.');
+        
         const posts = await response.json();
-
-        let html = '<div class="phdr"><b>ARTIKEL TERBARU</b></div>';
-        posts.forEach((post, index) => {
-            const cssClass = index % 2 === 0 ? 'list1' : 'list2';
+        let html = '';
+        posts.forEach(post => {
             html += `
-                <div class="${cssClass}">
-                    <img src="http://putrasumatra.mw.lt/css/themas/images/tmn.gif" style="vertical-align:middle;"> 
-                    <a href="javascript:void(0)" onclick="navigateToPost('${post.id}')"><b>${post.title}</b></a>
-                    <div style="margin-top:4px; color:#aaa;">${post.excerpt}</div>
-                    <div class="func">Tgl: ${post.date}</div>
-                </div>`;
+                <div class="list1">
+                    <img src="${post.image}" style="float:left; margin-right:10px; width:16px;">
+                    <a href="#post/${post.id}" onclick="renderSinglePost('${post.id}')"><b>${post.title}</b></a>
+                    <br><small>${post.date}</small>
+                    <p>${post.excerpt}</p>
+                </div>
+            `;
         });
         app.innerHTML = html;
-    } catch (e) {
-        app.innerHTML = '<div class="rmenu">Belum ada artikel atau folder /data/posts.json belum dibuat.</div>';
+    } catch (error) {
+        app.innerHTML = `<div class="list1" style="color:red;">Error: ${error.message}</div>`;
     }
 }
 
-// Menampilkan isi artikel lengkap
 async function renderSinglePost(id) {
+    app.innerHTML = '<div class="list1" style="text-align:center;">Memuat isi artikel...</div>';
     try {
         const response = await fetch(`data/${id}.json`);
-        if (!response.ok) throw new Error();
-        const post = await response.json();
+        if (!response.ok) throw new Error('Artikel tidak ditemukan.');
         
-        // Mengubah Markdown menjadi HTML
+        const post = await response.json();
+        // Menggunakan marked untuk merubah teks jadi artikel
         const contentHtml = marked.parse(post.content);
-
+        
         app.innerHTML = `
             <div class="phdr"><b>${post.title}</b></div>
-            <div class="gmenu">Oleh: ${post.author} | ${post.date}</div>
-            <div class="list1 markdown-body">${contentHtml}</div>
-            <div class="list2">
-                <a href="javascript:void(0)" onclick="goHome()">&laquo; Kembali ke Home</a>
-            </div>`;
-    } catch (e) {
-        app.innerHTML = '<div class="rmenu">Artikel tidak ditemukan!</div>';
+            <div class="list1">
+                <small>Oleh: ${post.author} | ${post.date}</small>
+                <hr noshade size="1">
+                <div class="content">${contentHtml}</div>
+                <hr noshade size="1">
+                <a href="javascript:void(0)" onclick="renderPostList()">« Kembali ke Daftar</a>
+            </div>
+        `;
+    } catch (error) {
+        app.innerHTML = `<div class="list1" style="color:red;">Error: ${error.message}</div>`;
     }
 }
 
-document.addEventListener('DOMContentLoaded', loadContent);
+// Jalankan fungsi saat halaman dibuka
+window.addEventListener('load', () => {
+    const hash = window.location.hash;
+    if (hash.startsWith('#post/')) {
+        const id = hash.replace('#post/', '');
+        renderSinglePost(id);
+    } else {
+        renderPostList();
+    }
+});
